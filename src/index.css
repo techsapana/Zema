@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  --primary-pink: #e26e93;
+  --background-light: #f8f5f6;
+  --background-dark: #230f12;
+}
+
+@theme inline {
+  --color-primary-pink: var(--primary-pink);
+  --color-background-light: var(--background-light);
+  --color-background-dark: var(--background-dark);
+}
