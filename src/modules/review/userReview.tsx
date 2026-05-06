@@ -32,10 +32,7 @@ export default function ReviewsPage() {
     queryFn: getReviewsApi,
   });
 
-  const avgRating =
-    reviews && reviews.length > 0
-      ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length
-      : 0;
+
 
   return (
     <main className="min-h-screen bg-primary-pink/5">

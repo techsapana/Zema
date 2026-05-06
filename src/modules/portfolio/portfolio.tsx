@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   getGalleryApi,
-  getReviewsApi,
   type GalleryItem,
-  type Review,
 } from "../../api/galleryAndReviewApi";
-import { Loader2, Quote, EllipsisVertical } from "lucide-react";
+import { Loader2, EllipsisVertical } from "lucide-react";
 import { useNavigate } from "react-router";
 
 export default function Portfolio() {

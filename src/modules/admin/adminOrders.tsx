@@ -12,10 +12,7 @@ import {
   ShoppingBag,
   User,
   Phone,
-  MapPin,
   ExternalLink,
-  CheckCircle,
-  Clock,
 } from "lucide-react";
 import toast from "react-hot-toast";
 

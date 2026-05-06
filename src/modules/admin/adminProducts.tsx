@@ -14,7 +14,6 @@ import {
   Package,
   ImagePlus,
   X,
-  Tag,
   Pencil,
 } from "lucide-react";
 import toast from "react-hot-toast";

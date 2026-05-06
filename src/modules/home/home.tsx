@@ -1,13 +1,11 @@
 import {
-  Palette,
   Eye,
   GraduationCap,
   Heart,
 } from "lucide-react";
 import TestimonialsSection from "../../components/projectComponents/reviews";
 import { useNavigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { getGalleryApi, type GalleryItem } from "../../api/galleryAndReviewApi";
+
 
 export default function Home() {
   const navigate = useNavigate();

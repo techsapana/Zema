@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCoursesApi, type CourseWithInstructor } from "../../api/academyApi";
-import { Clock, ArrowRight, User, DollarSign } from "lucide-react";
+import { Clock, ArrowRight, User } from "lucide-react";
 import { useNavigate } from "react-router";
 
 // ── Sub-components ───────────────────────────────────────────────────────────

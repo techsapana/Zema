@@ -4,7 +4,6 @@ import {
   getAdminSlotsApi,
   createSlotApi,
   deleteSlotApi,
-  type BookingSlot,
 } from "../../api/slotsApi";
 import {
   Trash2,

@@ -4,13 +4,9 @@ import { getPublicProductsApi, type Product } from "../../api/productApi";
 import {
   ShoppingBag,
   Loader2,
-  ArrowRight,
   ChevronLeft,
   ChevronRight,
   ShoppingCart,
-  CheckCircle2,
-  X,
-  Upload,
 } from "lucide-react";
 import BuyProductForm from "./buyProductForm";
 
