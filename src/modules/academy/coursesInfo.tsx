@@ -100,10 +100,17 @@ export default function CourseInfoPage() {
               <span className="flex items-center gap-1.5 px-4 py-2 bg-primary-pink/10 text-primary-pink rounded-full text-sm font-semibold">
                 <Clock size={14} /> {course.duration}
               </span>
-              <span className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-semibold">
-                <span>Rs </span>
-                {course.fees.toLocaleString()} fees
-              </span>
+              {course.discountPrice ? (
+                <span className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-semibold">
+                  <span className="line-through text-slate-400">Rs {course.fees.toLocaleString()}</span>
+                  <span className="text-primary-pink">Rs {course.discountPrice.toLocaleString()} fees</span>
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-semibold">
+                  <span>Rs </span>
+                  {course.fees.toLocaleString()} fees
+                </span>
+              )}
               {course.instructor && (
                 <span className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-semibold">
                   <User size={14} /> {course.instructor.name}
@@ -179,7 +186,7 @@ export default function CourseInfoPage() {
               </p>
 
               <h3 className="text-lg font-black text-slate-900 leading-snug">
-                Enrol in {course.title}
+                Enroll in {course.title}
               </h3>
 
               <div className="space-y-2 text-sm text-slate-600">
@@ -189,7 +196,14 @@ export default function CourseInfoPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <DollarSign size={14} className="text-primary-pink" />
-                  <span>Rs {course.fees.toLocaleString()}</span>
+                  {course.discountPrice ? (
+                    <div className="flex flex-col">
+                      <span className="text-xs line-through text-slate-400">Rs {course.fees.toLocaleString()}</span>
+                      <span className="font-bold">Rs {course.discountPrice.toLocaleString()}</span>
+                    </div>
+                  ) : (
+                    <span>Rs {course.fees.toLocaleString()}</span>
+                  )}
                 </div>
                 {course.instructor && (
                   <div className="flex items-center gap-2">
@@ -203,7 +217,7 @@ export default function CourseInfoPage() {
                 onClick={() => navigate("/enroll")}
                 className="cursor-pointer w-full bg-primary-pink text-white py-3 rounded-full font-bold text-sm shadow-lg shadow-primary-pink/25 hover:shadow-xl hover:shadow-primary-pink/30 hover:scale-[1.02] transition-all duration-200 flex items-center justify-center gap-2"
               >
-                Enrol Now
+                Enroll Now
                 <ArrowRight size={16} />
               </button>
             </div>

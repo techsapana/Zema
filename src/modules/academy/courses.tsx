@@ -68,11 +68,22 @@ function CourseCard({ course }: { course: CourseWithInstructor }) {
 
         {/* Divider */}
         <div className="border-t border-slate-100 pt-5 flex items-center justify-between">
-          <span className="text-xl font-black text-slate-900 flex items-center gap-0.5">
-            {/* <DollarSign size={16} className="text-primary-pink" /> */}
-            <span>Rs </span>
-            {course.fees.toLocaleString()}
-          </span>
+          <div className="flex flex-col">
+            {course.discountPrice ? (
+              <>
+                <span className="text-xs text-slate-400 line-through font-bold">
+                  Rs {course.fees.toLocaleString()}
+                </span>
+                <span className="text-xl font-black text-slate-900">
+                  Rs {course.discountPrice.toLocaleString()}
+                </span>
+              </>
+            ) : (
+              <span className="text-xl font-black text-slate-900">
+                Rs {course.fees.toLocaleString()}
+              </span>
+            )}
+          </div>
           <button className="flex items-center gap-1.5 text-sm font-bold text-primary-pink group-hover:gap-2.5 transition-all">
             More Info
             <ArrowRight

@@ -13,6 +13,7 @@ export interface Course {
   duration: string;
   image: string;
   fees: number;
+  discountPrice?: number;
   curriculum: string;
   instructorId: number;
   createdAt: string;
@@ -34,6 +35,7 @@ export interface CreateCoursePayload {
   description: string;
   duration: string;
   fees: number;
+  discountPrice?: number;
   curriculum: string;
   image: string;
   instructorId: number;
@@ -53,7 +55,7 @@ export const createCourseApi = async (
       },
     },
   );
-  return response.data.data;
+  return response.data?.data ?? ({} as Course);
 };
 
 export const deleteCourseApi = async (id: number): Promise<void> => {
@@ -63,6 +65,20 @@ export const deleteCourseApi = async (id: number): Promise<void> => {
       Authorization: `Bearer ${token}`,
     },
   });
+};
+
+export const updateCourseApi = async ({ id, payload }: { id: number; payload: CreateCoursePayload }): Promise<Course> => {
+  const token = localStorage.getItem("token");
+  const response = await academyApiClient.put<CourseResponse>(
+    `/admin/course/${id}`,
+    payload,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data?.data ?? ({} as Course);
 };
 
 export interface CourseWithInstructor extends Course {
@@ -82,7 +98,7 @@ export interface CoursesWithInstructorResponse {
 export const getCoursesApi = async (): Promise<CourseWithInstructor[]> => {
   const response =
     await academyApiClient.get<CoursesWithInstructorResponse>("/public/course");
-  return response.data.data;
+  return response.data?.data ?? [];
 };
 
 export const getCourseByIdApi = async (
@@ -91,8 +107,8 @@ export const getCourseByIdApi = async (
   const response = await academyApiClient.get<{
     success: boolean;
     data: CourseWithInstructor;
-  }>(`/public/couse/${id}`);
-  return response.data.data;
+  }>(`/public/course/${id}`);
+  return response.data?.data ?? ({} as CourseWithInstructor);
 };
 
 export default academyApiClient;

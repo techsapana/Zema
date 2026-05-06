@@ -81,7 +81,7 @@ export default function Enroll() {
             onClick={resetForm}
             className="cursor-pointer w-full bg-primary-pink text-white py-3 rounded-xl font-bold hover:bg-primary-pink/90 transition-colors"
           >
-            Enrol in Another Course
+            Enroll in Another Course
           </button>
         </div>
       </main>

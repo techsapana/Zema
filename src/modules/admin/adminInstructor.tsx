@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getInstructorsApi,
   createInstructorApi,
+  updateInstructorApi,
   deleteInstructorApi,
   type Instructor,
   type CreateInstructorPayload,
@@ -14,6 +15,7 @@ import {
   Loader2,
   X,
   UserCircle,
+  Pencil,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -30,6 +32,7 @@ export default function AdminInstructor() {
   const queryClient = useQueryClient();
   const photoRef = useRef<HTMLInputElement>(null);
 
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -55,6 +58,16 @@ export default function AdminInstructor() {
     onError: () => toast.error("Failed to create instructor."),
   });
 
+  const updateMutation = useMutation({
+    mutationFn: updateInstructorApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["adminInstructors"] });
+      toast.success("Instructor updated!");
+      resetForm();
+    },
+    onError: () => toast.error("Failed to update instructor."),
+  });
+
   const deleteMutation = useMutation({
     mutationFn: deleteInstructorApi,
     onSuccess: () => {
@@ -68,6 +81,7 @@ export default function AdminInstructor() {
   });
 
   const resetForm = () => {
+    setEditingId(null);
     setName("");
     setBio("");
     setPhotoFile(null);
@@ -84,19 +98,37 @@ export default function AdminInstructor() {
     reader.readAsDataURL(file);
   };
 
-  const handleCreate = async () => {
+  const handleEditClick = (inst: Instructor) => {
+    setEditingId(inst.id);
+    setName(inst.name);
+    setBio(inst.bio);
+    setPhotoPreview(inst.photo);
+    setPhotoFile(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSubmit = async () => {
     if (!name.trim()) return toast.error("Please enter a name.");
     if (!bio.trim()) return toast.error("Please enter a bio.");
-    if (!photoFile) return toast.error("Please select a photo.");
+    if (!editingId && !photoFile) return toast.error("Please select a photo.");
 
     try {
-      const base64Photo = await fileToBase64(photoFile);
+      let base64Photo = "";
+      if (photoFile) {
+        base64Photo = await fileToBase64(photoFile);
+      }
+
       const payload: CreateInstructorPayload = {
         name: name.trim(),
         bio: bio.trim(),
-        photo: base64Photo,
+        photo: base64Photo || photoPreview || "",
       };
-      createMutation.mutate(payload);
+
+      if (editingId) {
+        updateMutation.mutate({ id: editingId, payload });
+      } else {
+        createMutation.mutate(payload);
+      }
     } catch {
       toast.error("Error processing photo.");
     }
@@ -121,10 +153,21 @@ export default function AdminInstructor() {
 
       {/* ── Create Form ── */}
       <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-8 space-y-5">
-        <h2 className="text-lg font-semibold text-slate-700 flex items-center gap-2">
-          <UserCircle size={20} className="text-primary-pink" />
-          New Instructor
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-slate-700 flex items-center gap-2">
+            <UserCircle size={20} className="text-primary-pink" />
+            {editingId ? "Edit Instructor" : "New Instructor"}
+          </h2>
+          {editingId && (
+            <button
+              onClick={resetForm}
+              className="p-1.5 hover:bg-slate-100 rounded-full text-slate-400 hover:text-red-500 transition-colors"
+              title="Cancel Edit"
+            >
+              <X size={20} />
+            </button>
+          )}
+        </div>
 
         {/* Photo + Name row */}
         <div className="flex items-start gap-4">
@@ -193,21 +236,28 @@ export default function AdminInstructor() {
         {/* Submit */}
         <div className="flex items-center gap-3 pt-1">
           <button
-            onClick={handleCreate}
+            onClick={handleSubmit}
             disabled={
               createMutation.isPending ||
+              updateMutation.isPending ||
               !name.trim() ||
               !bio.trim() ||
-              !photoFile
+              (!editingId && !photoFile)
             }
             className="cursor-pointer flex items-center gap-2 bg-primary-pink text-white px-6 py-2.5 rounded-xl font-semibold text-sm transition-all hover:bg-primary-pink/90 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {createMutation.isPending ? (
+            {createMutation.isPending || updateMutation.isPending ? (
               <Loader2 size={16} className="animate-spin" />
+            ) : editingId ? (
+              <Upload size={16} />
             ) : (
               <Upload size={16} />
             )}
-            {createMutation.isPending ? "Adding…" : "Add Instructor"}
+            {createMutation.isPending || updateMutation.isPending
+              ? "Saving…"
+              : editingId
+              ? "Update Instructor"
+              : "Add Instructor"}
           </button>
           {(name || bio || photoFile) && (
             <button
@@ -290,19 +340,28 @@ export default function AdminInstructor() {
                   </p>
                 </div>
 
-                {/* Delete */}
-                <button
-                  onClick={() => handleDelete(instructor.id)}
-                  disabled={deleteMutation.isPending}
-                  className="cursor-pointer shrink-0 p-2  text-red-500 bg-red-50 rounded-lg transition-all opacity-100"
-                  title="Delete instructor"
-                >
-                  {deleteMutation.isPending ? (
-                    <Loader2 size={16} className="animate-spin" />
-                  ) : (
-                    <Trash2 size={16} />
-                  )}
-                </button>
+                {/* Actions */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleEditClick(instructor)}
+                    className="cursor-pointer shrink-0 p-2 text-slate-400 hover:text-primary-pink bg-slate-100 rounded-lg transition-all"
+                    title="Edit instructor"
+                  >
+                    <Pencil size={16} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(instructor.id)}
+                    disabled={deleteMutation.isPending}
+                    className="cursor-pointer shrink-0 p-2 text-red-500 bg-red-50 rounded-lg transition-all"
+                    title="Delete instructor"
+                  >
+                    {deleteMutation.isPending ? (
+                      <Loader2 size={16} className="animate-spin" />
+                    ) : (
+                      <Trash2 size={16} />
+                    )}
+                  </button>
+                </div>
               </div>
             ))}
           </div>

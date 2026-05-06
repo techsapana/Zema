@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getAdminAppointmentsApi,
+  updateAppointmentApi,
   deleteAppointmentApi,
   type Appointment,
 } from "../../api/appointmentApi";
@@ -47,6 +48,16 @@ export default function AdminAppointment() {
       const res = await getAdminAppointmentsApi();
       return res.appointments;
     },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<Appointment> }) =>
+      updateAppointmentApi(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["adminAppointments"] });
+      toast.success("Status updated!");
+    },
+    onError: () => toast.error("Failed to update status."),
   });
 
   const deleteMutation = useMutation({
@@ -142,16 +153,28 @@ export default function AdminAppointment() {
                   </div>
                 </div>
 
-                {/* Status */}
-                <span
-                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold ${
-                    appt.done
+                {/* Status Dropdown */}
+                <select
+                  value={appt.status}
+                  onChange={(e) =>
+                    updateMutation.mutate({
+                      id: appt.id,
+                      data: { status: e.target.value as any },
+                    })
+                  }
+                  disabled={updateMutation.isPending}
+                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold capitalize outline-none border-none cursor-pointer transition-all ${
+                    appt.status === "completed"
                       ? "bg-emerald-100 text-emerald-700"
+                      : appt.status === "cancelled"
+                      ? "bg-red-100 text-red-600"
                       : "bg-amber-100 text-amber-700"
                   }`}
                 >
-                  {appt.done ? "Done" : "Pending"}
-                </span>
+                  <option value="pending">Pending</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
 
                 {/* Delete */}
                 <button

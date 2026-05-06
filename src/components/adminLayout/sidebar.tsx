@@ -5,7 +5,6 @@ import {
   Menu,
   ShieldCheck,
   Images,
-  LayoutDashboard,
   LogOut,
   MessageSquare,
   Users,
@@ -14,6 +13,10 @@ import {
   CalendarDays,
   GraduationCap,
   UsersRound,
+  Clock,
+  Scissors,
+  ShoppingBag,
+  Package,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -63,6 +66,26 @@ const sidebarLinks = [
     icon: <UsersRound size={18} />,
     path: "/team-admin",
   },
+  {
+    name: "Booking Timings",
+    icon: <Clock size={18} />,
+    path: "/slots-admin",
+  },
+  {
+    name: "Salon Services",
+    icon: <Scissors size={18} />,
+    path: "/services-admin",
+  },
+  {
+    name: "Products",
+    icon: <Package size={18} />,
+    path: "/products-admin",
+  },
+  {
+    name: "Orders",
+    icon: <ShoppingBag size={18} />,
+    path: "/orders-admin",
+  },
 ];
 
 function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
@@ -100,10 +123,9 @@ function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
             to={link.path}
             onClick={onNavClick}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                isActive
-                  ? "bg-primary-pink/10 text-primary-pink"
-                  : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+              `flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
+                ? "bg-primary-pink/10 text-primary-pink"
+                : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
               }`
             }
           >

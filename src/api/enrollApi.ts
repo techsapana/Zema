@@ -23,7 +23,7 @@ export interface Enrollment {
   fullName: string;
   address: string;
   email: string;
-  status: "pending" | "accepted" | "rejected";
+  status: "pending" | "enrolled" | "completed" | "cancelled";
   courseId: number;
   course: Course;
   createdAt: string;
@@ -57,9 +57,28 @@ export const createEnrollmentApi = async (
 };
 
 export interface GetAdminEnrollmentsParams {
-  status?: "pending" | "accepted" | "rejected";
+  status?: "pending" | "enrolled" | "completed" | "cancelled";
   courseId?: number;
 }
+
+export const updateEnrollmentStatusApi = async (
+  id: number,
+  status: "pending" | "enrolled" | "completed" | "cancelled",
+): Promise<AdminEnrollmentsResponse> => {
+  const token = localStorage.getItem("token");
+
+  const response = await enrollmentApiClient.patch<AdminEnrollmentsResponse>(
+    `/admin/enrollment/${id}/status`,
+    { status },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  return response.data;
+};
 
 export const getAdminEnrollmentsApi = async (
   params?: GetAdminEnrollmentsParams,

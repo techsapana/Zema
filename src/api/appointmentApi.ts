@@ -24,7 +24,7 @@ export interface Appointment {
   name: string;
   phone: string;
   appointment: string;
-  done: boolean;
+  status: "pending" | "completed" | "cancelled";
   createdAt: string;
 }
 
@@ -65,7 +65,7 @@ export const bookAppointmentApi = async (
 };
 
 export interface GetAdminAppointmentsParams {
-  done?: boolean;
+  status?: "pending" | "completed" | "cancelled";
   from?: string;
   to?: string;
 }
@@ -80,6 +80,26 @@ export const getAdminAppointmentsApi = async (
     "/admin/appointment",
     {
       params,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  return response.data;
+};
+
+// UPDATE APPOINTMENT
+export const updateAppointmentApi = async (
+  id: string,
+  data: Partial<Appointment>,
+): Promise<BookAppointmentResponse> => {
+  const token = localStorage.getItem("token");
+
+  const response = await appointmentApiClient.put<BookAppointmentResponse>(
+    `/admin/appointment/${id}`,
+    data,
+    {
       headers: {
         Authorization: `Bearer ${token}`,
       },

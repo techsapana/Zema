@@ -23,6 +23,11 @@ import AdminInstructor from "../modules/admin/adminInstructor";
 import AdminAppointment from "../modules/admin/adminAppointment";
 import AdminEnrollment from "../modules/admin/adminEnrollment";
 import AdminTeam from "../modules/admin/adminTeam";
+import AdminSlots from "../modules/admin/adminSlots";
+import AdminServices from "../modules/admin/adminServices";
+import AdminProducts from "../modules/admin/adminProducts";
+import AdminOrders from "../modules/admin/adminOrders";
+import Products from "../modules/products/products";
 import Enroll from "../modules/enroll/enroll";
 
 export const router = createBrowserRouter([
@@ -36,6 +41,7 @@ export const router = createBrowserRouter([
       { path: "reviews", element: <ReviewsPage /> },
       { path: "bookAppointment", element: <Appointment /> },
       { path: "enroll", element: <Enroll /> },
+      { path: "products", element: <Products /> },
 
       {
         path: "community",
@@ -122,6 +128,22 @@ export const router = createBrowserRouter([
       {
         path: "team-admin",
         element: <AdminTeam />,
+      },
+      {
+        path: "slots-admin",
+        element: <AdminSlots />,
+      },
+      {
+        path: "services-admin",
+        element: <AdminServices />,
+      },
+      {
+        path: "products-admin",
+        element: <AdminProducts />,
+      },
+      {
+        path: "orders-admin",
+        element: <AdminOrders />,
       },
     ],
   },

@@ -1,7 +1,6 @@
 import {
-  Scissors,
   Palette,
-  Sparkles,
+  Eye,
   GraduationCap,
   Heart,
 } from "lucide-react";
@@ -102,51 +101,55 @@ export default function Home() {
               </div>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
-              {/* <!-- Service 1 --> */}
+              {/* <!-- Nail Specialization --> */}
               <div className="group bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-slate-100 ">
                 <div className="w-14 h-14 bg-primary-pink/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-pink transition-colors">
                   <div className="text-primary-pink group-hover:text-white">
-                    <Scissors />
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 22V8a4 4 0 0 0-8 0v14" />
+                      <path d="M9 7a3 3 0 0 1 6 0v4a3 3 0 0 1-6 0V7z" fill="currentColor" fillOpacity="0.2" />
+                      <path d="M9 7a3 3 0 0 1 6 0v4a3 3 0 0 1-6 0V7z" />
+                    </svg>
                   </div>
                 </div>
-                <h4 className="text-xl font-bold mb-3">
-                  Precision Haircutting
+                <h4 className="text-xl font-bold mb-3 text-slate-800">
+                  Nail Art
                 </h4>
-                <p className="text-slate-600 mb-6">
-                  Expertly crafted silhouettes that complement your face shape
-                  and lifestyle.
+                <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                  Get beautiful nails with our expert care. We offer simple styles and creative art for your hands.
                 </p>
-                {/* <p className="font-bold text-primary-pink">Starting at $85</p> */}
               </div>
-              {/* <!-- Service 2 --> */}
+
+              {/* <!-- Lash Specialization --> */}
               <div className="group bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-slate-100 ">
                 <div className="w-14 h-14 bg-primary-pink/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-pink transition-colors">
                   <div className="text-primary-pink group-hover:text-white">
-                    <Palette />
+                    <Eye size={28} />
                   </div>
                 </div>
-                <h4 className="text-xl font-bold mb-3">Artisanal Coloring</h4>
-                <p className="text-slate-600 mb-6">
-                  From sun-kissed balayage to bold transformations using
-                  low-toxin formulas.
+                <h4 className="text-xl font-bold mb-3 text-slate-800">Lash & Brow</h4>
+                <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                  Make your eyes look amazing. We provide eyelash extensions and eyebrow shaping that fits you perfectly.
                 </p>
-                {/* <p className="font-bold text-primary-pink">Starting at $150</p> */}
               </div>
-              {/* <!-- Service 3 --> */}
+
+              {/* <!-- Skin Specialization --> */}
               <div className="group bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all border border-slate-100 ">
                 <div className="w-14 h-14 bg-primary-pink/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary-pink transition-colors">
                   <div className="text-primary-pink group-hover:text-white">
-                    <Sparkles />
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 21a9 9 0 1 1 0-18c4.97 0 9 3.58 9 8a8.94 8.94 0 0 1-2.26 5.77" />
+                      <path d="M16 11c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2Z" />
+                      <path d="M12 17c.67 0 1.33-.09 2-.26" />
+                    </svg>
                   </div>
                 </div>
-                <h4 className="text-xl font-bold mb-3">
-                  Advanced Skin Therapy
+                <h4 className="text-xl font-bold mb-3 text-slate-800">
+                  Skin Care
                 </h4>
-                <p className="text-slate-600 mb-6">
-                  Clinical-grade facials and rejuvenation treatments for lasting
-                  luminosity.
+                <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                  Keep your skin healthy and glowing. We use special treatments to help your skin look its best.
                 </p>
-                {/* <p className="font-bold text-primary-pink">Starting at $120</p> */}
               </div>
             </div>
           </div>

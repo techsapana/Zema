@@ -83,7 +83,7 @@ export default function RichTextEditor({
     if (editorRef.current && value !== editorRef.current.innerHTML) {
       editorRef.current.innerHTML = value || "";
     }
-  }, []);
+  }, [value]);
 
   const handleInput = () => {
     if (onChange && editorRef.current) {

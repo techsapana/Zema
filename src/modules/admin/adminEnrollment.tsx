@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getAdminEnrollmentsApi,
+  updateEnrollmentStatusApi,
   deleteEnrollmentApi,
   type Enrollment,
 } from "../../api/enrollApi";
@@ -39,6 +40,16 @@ export default function AdminEnrollment() {
     },
   });
 
+  const updateStatusMutation = useMutation({
+    mutationFn: ({ id, status }: { id: number; status: any }) =>
+      updateEnrollmentStatusApi(id, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["adminEnrollments"] });
+      toast.success("Status updated!");
+    },
+    onError: () => toast.error("Failed to update status."),
+  });
+
   const deleteMutation = useMutation({
     mutationFn: deleteEnrollmentApi,
     onSuccess: () => {
@@ -56,9 +67,11 @@ export default function AdminEnrollment() {
 
   const statusColor = (status: string) => {
     switch (status) {
-      case "accepted":
+      case "enrolled":
         return "bg-emerald-100 text-emerald-700";
-      case "rejected":
+      case "completed":
+        return "bg-blue-100 text-blue-700";
+      case "cancelled":
         return "bg-red-100 text-red-600";
       default:
         return "bg-amber-100 text-amber-700";
@@ -149,12 +162,23 @@ export default function AdminEnrollment() {
                   </p>
                 </div>
 
-                {/* Status */}
-                <span
-                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold capitalize ${statusColor(enroll.status)}`}
+                {/* Status Dropdown */}
+                <select
+                  value={enroll.status}
+                  onChange={(e) =>
+                    updateStatusMutation.mutate({
+                      id: enroll.id,
+                      status: e.target.value as any,
+                    })
+                  }
+                  disabled={updateStatusMutation.isPending}
+                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold capitalize outline-none border-none cursor-pointer transition-all ${statusColor(enroll.status)}`}
                 >
-                  {enroll.status}
-                </span>
+                  <option value="pending">Pending</option>
+                  <option value="enrolled">Enrolled</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
 
                 {/* Delete */}
                 <button

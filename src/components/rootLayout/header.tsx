@@ -5,6 +5,7 @@ import { X, ChevronDown, Menu } from "lucide-react";
 const navLinks: { name: string; path: string }[] = [
   { name: "AboutUs", path: "/about" },
   { name: "Portfolio", path: "/portfolio" },
+  { name: "Products", path: "/products" },
   { name: "Community", path: "/community" },
   { name: "Contact", path: "/contacts" },
 ];

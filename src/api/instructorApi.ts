@@ -21,7 +21,7 @@ export interface InstructorsResponse {
 export const getInstructorsApi = async (): Promise<Instructor[]> => {
   const response =
     await instructorApiClient.get<InstructorsResponse>("/public/instructor");
-  return response.data.data;
+  return response.data?.data ?? [];
 };
 
 export interface CreateInstructorPayload {
@@ -48,7 +48,7 @@ export const createInstructorApi = async (
       },
     },
   );
-  return response.data.data;
+  return response.data?.data ?? ({} as Instructor);
 };
 
 export const deleteInstructorApi = async (id: number): Promise<void> => {
@@ -59,6 +59,20 @@ export const deleteInstructorApi = async (id: number): Promise<void> => {
       Authorization: `Bearer ${token}`,
     },
   });
+};
+
+export const updateInstructorApi = async ({ id, payload }: { id: number; payload: CreateInstructorPayload }): Promise<Instructor> => {
+  const token = localStorage.getItem("token");
+  const response = await instructorApiClient.put<InstructorResponse>(
+    `/admin/instructor/${id}`,
+    payload,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data?.data ?? ({} as Instructor);
 };
 
 export default instructorApiClient;

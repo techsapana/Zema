@@ -60,7 +60,7 @@ export const getGalleryApi = async (): Promise<GalleryItem[]> => {
   try {
     const response =
       await galleryApiClient.get<GalleryResponse>("/public/gallery");
-    return response.data.galleries;
+    return response.data?.galleries ?? [];
   } catch (error) {
     console.error("Error fetching gallery:", error);
     throw error;
@@ -70,7 +70,7 @@ export const getReviewsApi = async (): Promise<Review[]> => {
   try {
     const response =
       await galleryApiClient.get<ReviewsResponse>("/public/reviews");
-    return response.data.reviews;
+    return response.data?.reviews ?? [];
   } catch (error) {
     console.error("Error fetching reviews:", error);
     throw error;
