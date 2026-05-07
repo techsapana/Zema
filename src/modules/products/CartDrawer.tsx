@@ -29,6 +29,7 @@ export default function CartDrawer() {
             total={total} 
             deliveryFee={deliveryFee}
             paymentQRs={settingsData?.settings?.paymentQRs || []}
+            onSuccess={() => {}} 
           />
         ) : (
           <>
