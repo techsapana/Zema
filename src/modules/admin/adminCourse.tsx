@@ -6,7 +6,6 @@ import {
   updateCourseApi,
   deleteCourseApi,
   type CourseWithInstructor,
-  type CreateCoursePayload,
 } from "../../api/academyApi";
 import { getInstructorsApi, type Instructor } from "../../api/instructorApi";
 import {
@@ -146,12 +145,12 @@ export default function AdminCourse() {
         base64Image = await fileToBase64(imageFile);
       }
 
-      const payload: CreateCoursePayload = {
+      const payload = {
         title: title.trim(),
         description,
         duration: duration.trim(),
         fees: Number(fees),
-        discountPrice: discountPrice ? Number(discountPrice) : undefined,
+        discountPrice: discountPrice ? Number(discountPrice) : null,
         curriculum,
         image: base64Image || imagePreview || "",
         instructorId: Number(instructorId),

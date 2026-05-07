@@ -11,7 +11,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  discountPrice?: number;
+  discountPrice?: number | null;
   image: string;
   category: string;
   createdAt: string;

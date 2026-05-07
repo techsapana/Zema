@@ -35,7 +35,7 @@ export interface CreateCoursePayload {
   description: string;
   duration: string;
   fees: number;
-  discountPrice?: number;
+  discountPrice?: number | null;
   curriculum: string;
   image: string;
   instructorId: number;
