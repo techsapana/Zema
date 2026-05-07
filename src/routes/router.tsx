@@ -27,7 +27,10 @@ import AdminSlots from "../modules/admin/adminSlots";
 import AdminServices from "../modules/admin/adminServices";
 import AdminProducts from "../modules/admin/adminProducts";
 import AdminOrders from "../modules/admin/adminOrders";
+import AdminSettings from "../modules/admin/adminSettings";
 import Products from "../modules/products/products";
+import ProductInfoPage from "../modules/products/productInfo";
+import CartPage from "../modules/products/CartPage";
 import Enroll from "../modules/enroll/enroll";
 
 export const router = createBrowserRouter([
@@ -41,7 +44,14 @@ export const router = createBrowserRouter([
       { path: "reviews", element: <ReviewsPage /> },
       { path: "bookAppointment", element: <Appointment /> },
       { path: "enroll", element: <Enroll /> },
-      { path: "products", element: <Products /> },
+      {
+        path: "products",
+        children: [
+          { index: true, element: <Products /> },
+          { path: ":id", element: <ProductInfoPage /> },
+          { path: "cart", element: <CartPage /> },
+        ],
+      },
 
       {
         path: "community",
@@ -144,6 +154,10 @@ export const router = createBrowserRouter([
       {
         path: "orders-admin",
         element: <AdminOrders />,
+      },
+      {
+        path: "settings-admin",
+        element: <AdminSettings />,
       },
     ],
   },

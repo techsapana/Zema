@@ -13,25 +13,68 @@ export interface Product {
   price: number;
   discountPrice?: number | null;
   image: string;
+  additionalImages?: string[];
   category: string;
+  rating: number;
+  stockCount: number;
   createdAt: string;
 }
 
 export interface ProductOrder {
   id: string;
-  productId: string;
+  productId?: string;
   product?: Product;
+  cartItems?: any;
+  totalAmount?: number;
+  deliveryFee?: number;
   customerName: string;
   customerPhone: string;
   customerAddress: string;
-  paymentScreenshot: string;
+  paymentMethod?: string;
+  paymentScreenshot?: string;
   status: string;
   createdAt: string;
 }
 
+export interface SiteSettings {
+  whatsappNumber: string | null;
+  deliveryFee: number;
+  paymentQRs: string[];
+}
+
+// PUBLIC: Get Settings
+export const getPublicSettingsApi = async () => {
+  const res = await apiClient.get(`/public/settings`);
+  return res.data;
+};
+
+// ADMIN: Get Settings
+export const getAdminSettingsApi = async () => {
+  const token = localStorage.getItem("token");
+  const res = await apiClient.get(`/admin/settings`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
+// ADMIN: Update Settings
+export const updateAdminSettingsApi = async (data: any) => {
+  const token = localStorage.getItem("token");
+  const res = await apiClient.put(`/admin/settings`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
 // PUBLIC: Get Products
 export const getPublicProductsApi = async (page = 1, limit = 8) => {
   const res = await apiClient.get(`/public/products`, { params: { page, limit } });
+  return res.data;
+};
+
+// PUBLIC: Get Single Product
+export const getPublicProductByIdApi = async (id: string) => {
+  const res = await apiClient.get(`/public/products/${id}`);
   return res.data;
 };
 

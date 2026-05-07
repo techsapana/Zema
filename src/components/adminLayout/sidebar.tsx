@@ -17,6 +17,7 @@ import {
   Scissors,
   ShoppingBag,
   Package,
+  Settings,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -85,6 +86,11 @@ const sidebarLinks = [
     name: "Orders",
     icon: <ShoppingBag size={18} />,
     path: "/orders-admin",
+  },
+  {
+    name: "Settings",
+    icon: <Settings size={18} />,
+    path: "/settings-admin",
   },
 ];
 

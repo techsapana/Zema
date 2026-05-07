@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
-import { X, ChevronDown, Menu } from "lucide-react";
+import { X, ChevronDown, Menu, ShoppingCart } from "lucide-react";
+import { useCartStore } from "../../store/cartStore";
 
 const navLinks: { name: string; path: string }[] = [
   { name: "AboutUs", path: "/about" },
@@ -22,6 +23,7 @@ export default function RootHeader() {
   const [isAcademyOpen, setIsAcademyOpen] = useState(false);
   const [isMobileAcademyOpen, setIsMobileAcademyOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { items } = useCartStore();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -111,14 +113,40 @@ export default function RootHeader() {
               >
                 Book Appointment
               </button>
+
+              <button 
+                onClick={() => navigate("/products/cart")} 
+                className="relative p-2 text-slate-700 hover:text-primary-pink transition-colors cursor-pointer"
+                title="View Cart"
+              >
+                <ShoppingCart size={22} />
+                {items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary-pink text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm">
+                    {items.length}
+                  </span>
+                )}
+              </button>
             </nav>
 
-            <button
-              className="md:hidden"
-              onClick={() => setIsMobileMenuOpen(true)}
-            >
-              <Menu />
-            </button>
+            <div className="flex items-center gap-4 md:hidden">
+              <button 
+                onClick={() => navigate("/products/cart")} 
+                className="relative p-2 text-slate-700 hover:text-primary-pink transition-colors cursor-pointer"
+              >
+                <ShoppingCart size={22} />
+                {items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary-pink text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm">
+                    {items.length}
+                  </span>
+                )}
+              </button>
+              <button
+                className="p-2"
+                onClick={() => setIsMobileMenuOpen(true)}
+              >
+                <Menu />
+              </button>
+            </div>
           </div>
         </div>
       </header>

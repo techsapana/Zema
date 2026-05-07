@@ -4,7 +4,7 @@ import {
   Heart,
 } from "lucide-react";
 import TestimonialsSection from "../../components/projectComponents/reviews";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 
 export default function Home() {
@@ -53,13 +53,33 @@ export default function Home() {
                   </button> */}
                 </div>
               </div>
-              <div className="relative">
-                <div className="aspect-4/5 rounded-3xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 bg-primary-pink/10">
-                  <img
-                    className="w-full h-full object-cover"
-                    data-alt="Elegant woman receiving a professional hair treatment"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHOy56wWSU4r0eQucEknrbGnzYuxffZLlVCi2vy25W9JC7eo7G_aP7ngY7KevEMCZky-lt8ACg4t4gFRReHC8kareZhOf3lmN9cFZW99KgsTbJNiswRWiErPA5C9yWbN0AUmeNwKRWs5w-HE3WR2vRcdOJPZIAZrXwMahrn-K6ZtIKy8Tk9gmjmejItjpqM8lbnb9pWxb6ZP76aUNAPasZkmohMcBZIxtk-VOWQNXnho3d9NjhgOPMsjgHcMyIzARpmsA9D2Qu6y8"
-                  />
+              <div className="relative h-full flex items-center justify-center pt-8 lg:pt-0">
+                {/* Decorative background shape */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary-pink/20 to-transparent rounded-full blur-3xl -z-10"></div>
+                
+                <div className="relative w-full max-w-[500px]">
+                  {/* Decorative wireframe border */}
+                  <div className="absolute -inset-6 border-[1.5px] border-primary-pink/40 rounded-[3.5rem] -z-10 hidden md:block transform translate-y-4 -translate-x-4"></div>
+
+                  {/* Main Image - Reception */}
+                  <div className="relative z-10 w-full aspect-[4/3] md:aspect-[5/4] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border-[6px] border-white group">
+                    <img
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
+                      data-alt="Zema Salon Reception"
+                      src="/zemaReceptition.jpg"
+                      alt="Salon Reception"
+                    />
+                  </div>
+
+                  {/* Secondary Image - Overlapping */}
+                  <div className="absolute -bottom-8 -right-4 md:-bottom-12 md:-right-12 z-20 w-[45%] aspect-square rounded-full overflow-hidden shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] border-[8px] border-white bg-slate-100 hover:rotate-6 hover:scale-105 transition-all duration-500 origin-center">
+                    <img
+                      className="w-full h-full object-cover"
+                      data-alt="Detail salon shot"
+                      src="/nailJob.jpeg"
+                      alt="Nail Detail"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -94,9 +114,9 @@ export default function Home() {
                   Tailored treatments for your hair, skin, and soul.
                 </p>
               </div>
-              <div className="text-primary-pink font-bold border-b-2 border-primary-pink pb-1">
+              <Link to="/bookAppointment" className="text-primary-pink font-bold border-b-2 border-primary-pink pb-1 hover:text-pink-600 hover:border-pink-600 transition-colors">
                 View All Services
-              </div>
+              </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {/* <!-- Nail Specialization --> */}

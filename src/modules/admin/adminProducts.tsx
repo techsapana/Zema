@@ -24,6 +24,8 @@ export default function AdminProducts() {
   const [price, setPrice] = useState("");
   const [discountPrice, setDiscountPrice] = useState("");
   const [category, setCategory] = useState("Hair Care");
+  const [rating, setRating] = useState("5.0");
+  const [stockCount, setStockCount] = useState("10");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const imageRef = useRef<HTMLInputElement>(null);
@@ -71,6 +73,8 @@ export default function AdminProducts() {
     setDescription("");
     setPrice("");
     setDiscountPrice("");
+    setRating("5.0");
+    setStockCount("10");
     setImagePreview(null);
     if (imageRef.current) imageRef.current.value = "";
   };
@@ -90,6 +94,8 @@ export default function AdminProducts() {
     setPrice(String(p.price));
     setDiscountPrice(p.discountPrice ? String(p.discountPrice) : "");
     setCategory(p.category);
+    setRating(String(p.rating ?? 5.0));
+    setStockCount(String(p.stockCount ?? 10));
     setImagePreview(p.image);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -104,6 +110,8 @@ export default function AdminProducts() {
       price,
       discountPrice,
       category,
+      rating: Number(rating),
+      stockCount: Number(stockCount),
       image: imagePreview,
     };
 
@@ -167,6 +175,32 @@ export default function AdminProducts() {
                     type="number"
                     value={discountPrice}
                     onChange={(e) => setDiscountPrice(e.target.value)}
+                    className="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:border-primary-pink transition-all"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase text-slate-400">Rating (0-5)</label>
+                  <input
+                    required
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="5"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                    className="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:border-primary-pink transition-all"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase text-slate-400">Stock Count</label>
+                  <input
+                    required
+                    type="number"
+                    min="0"
+                    value={stockCount}
+                    onChange={(e) => setStockCount(e.target.value)}
                     className="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm outline-none focus:border-primary-pink transition-all"
                   />
                 </div>

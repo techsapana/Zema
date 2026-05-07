@@ -170,9 +170,6 @@ export default function AcademyCoursesSection() {
               passionate to professional.
             </p>
           </div>
-          <div className="text-primary-pink font-bold border-b-2 border-primary-pink pb-1 shrink-0 self-end">
-            View All Courses
-          </div>
         </div>
 
         {/* Grid */}

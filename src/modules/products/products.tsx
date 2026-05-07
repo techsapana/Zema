@@ -1,32 +1,60 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getPublicProductsApi, type Product } from "../../api/productApi";
+import { getPublicProductsApi, getPublicSettingsApi, type Product } from "../../api/productApi";
 import {
   ShoppingBag,
   Loader2,
   ChevronLeft,
   ChevronRight,
   ShoppingCart,
+  MessageCircle,
+  Star,
 } from "lucide-react";
-import BuyProductForm from "./buyProductForm";
+import CartDrawer from "./CartDrawer";
+import { useCartStore } from "../../store/cartStore";
+import { useNavigate } from "react-router";
 
 export default function Products() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { addToCart } = useCartStore();
 
   const { data: response, isLoading } = useQuery({
     queryKey: ["publicProducts", page],
     queryFn: () => getPublicProductsApi(page, 8),
   });
 
+  const { data: settings } = useQuery({
+    queryKey: ["publicSettings"],
+    queryFn: getPublicSettingsApi,
+  });
+
   const products = response?.products as Product[];
   const pagination = response?.pagination;
 
+  const handleWhatsApp = (e: React.MouseEvent, product: Product) => {
+    e.stopPropagation();
+    const rawPhone = settings?.settings?.whatsappNumber;
+    // Remove all non-digit characters to ensure a valid WhatsApp link
+    const phone = rawPhone ? rawPhone.replace(/\D/g, "") : "";
+    
+    const text = `Hi, I'm interested in ordering: ${product.name} (Rs ${product.discountPrice || product.price})`;
+    const url = phone 
+      ? `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
+      : `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank");
+  };
+
+  const handleOrderOnline = (e: React.MouseEvent, product: Product) => {
+    e.stopPropagation();
+    addToCart(product);
+  };
+
   return (
-    <main className="min-h-screen bg-slate-50 py-20 px-4">
+    <main className="min-h-screen bg-slate-50 py-20 px-4 relative">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 flex flex-col items-center relative">
           <span className="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest uppercase bg-primary-pink/10 text-primary-pink rounded-full">
             Salon Shop
           </span>
@@ -36,6 +64,8 @@ export default function Products() {
           <p className="text-slate-500 mt-4 max-w-2xl mx-auto">
             Experience salon-quality results at home with our curated collection of professional hair and skin care products.
           </p>
+
+
         </div>
 
         {/* Products Grid */}
@@ -47,8 +77,12 @@ export default function Products() {
           <>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {products?.map((product) => (
-                <div key={product.id} className="group bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-primary-pink/10 transition-all duration-500 flex flex-col">
-                  <div className="relative h-64 overflow-hidden bg-slate-100">
+                <div 
+                  key={product.id} 
+                  onClick={() => navigate(`/products/${product.id}`)}
+                  className="group bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-primary-pink/10 transition-all duration-500 flex flex-col cursor-pointer"
+                >
+                  <div className="relative h-48 overflow-hidden bg-slate-100">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -61,28 +95,57 @@ export default function Products() {
                     </div>
                   </div>
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className="text-lg font-black text-slate-900 mb-2 leading-snug group-hover:text-primary-pink transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-slate-500 text-xs line-clamp-2 mb-4 flex-1">
-                      {product.description}
-                    </p>
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-50">
-                      <div className="flex flex-col">
-                        {product.discountPrice ? (
-                          <>
-                            <span className="text-[10px] font-bold text-slate-400 line-through">Rs {product.price}</span>
-                            <span className="text-lg font-black text-primary-pink">Rs {product.discountPrice}</span>
-                          </>
-                        ) : (
-                          <span className="text-lg font-black text-slate-900">Rs {product.price}</span>
-                        )}
+                    <div className="flex justify-between items-start gap-4 flex-1">
+                      <div>
+                        <h3 className="text-lg font-black text-slate-900 mb-1 leading-snug group-hover:text-primary-pink transition-colors">
+                          {product.name}
+                        </h3>
+                        <div className="flex items-center gap-3 mb-2">
+                          {product.discountPrice ? (
+                            <div className="flex flex-col gap-1">
+                              <div className="flex items-center gap-2">
+                                <span className="text-lg font-black text-primary-pink">Rs {product.discountPrice}</span>
+                                <span className="text-[10px] font-bold text-slate-400 line-through">Rs {product.price}</span>
+                              </div>
+                              <span className="text-[10px] font-black text-green-600 bg-green-50 self-start px-1.5 py-0.5 rounded">
+                                {Math.round(((product.price - product.discountPrice) / product.price) * 100)}% OFF
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-lg font-black text-slate-900">Rs {product.price}</span>
+                          )}
+                        </div>
                       </div>
+                      <div className="flex flex-col items-end gap-1 shrink-0 text-right mt-1">
+                        <div className="flex items-center gap-0.5 text-amber-400">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star 
+                              key={star}
+                              size={12} 
+                              className={star <= (product.rating ?? 5) ? "fill-amber-400" : "text-slate-200"} 
+                            />
+                          ))}
+                          <span className="text-[10px] font-bold text-slate-400 ml-1">
+                            {product.rating?.toFixed(1) ?? "5.0"}
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                          {product.stockCount ?? 10} Left
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2 mt-auto border-t border-slate-50 pt-4">
                       <button
-                        onClick={() => setSelectedProduct(product)}
-                        className="cursor-pointer bg-primary-pink text-white p-3 rounded-2xl shadow-lg shadow-primary-pink/20 hover:scale-110 active:scale-95 transition-all"
+                        onClick={(e) => handleOrderOnline(e, product)}
+                        className="w-full flex items-center justify-center gap-2 bg-primary-pink text-white py-2.5 rounded-xl text-sm font-bold hover:bg-pink-600 transition-colors cursor-pointer"
                       >
-                        <ShoppingCart size={18} />
+                        <ShoppingCart size={16} /> Add to Cart
+                      </button>
+                      <button
+                        onClick={(e) => handleWhatsApp(e, product)}
+                        className="w-full flex items-center justify-center gap-2 bg-green-500 text-white py-2.5 rounded-xl text-sm font-bold hover:bg-green-600 transition-colors cursor-pointer"
+                      >
+                        <MessageCircle size={16} /> Order via WhatsApp
                       </button>
                     </div>
                   </div>
@@ -124,13 +187,10 @@ export default function Products() {
         )}
       </div>
 
-      {/* Buy Now Modal */}
-      {selectedProduct && (
-        <BuyProductForm
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
+      {/* Modals & Drawers */}
+
+      
+      <CartDrawer />
     </main>
   );
 }

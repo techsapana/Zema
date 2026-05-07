@@ -70,14 +70,12 @@ export default function AdminOrders() {
   // Calculate stats for SELECTED month
   const selectedOrders = groupedOrders?.[selectedMonth] || [];
   const monthlySales = selectedOrders.reduce((sum, o) => {
-    const price = o.product?.discountPrice || o.product?.price || 0;
-    return o.status === "completed" ? sum + price : sum;
+    return o.status === "completed" ? sum + (o.totalAmount || 0) : sum;
   }, 0);
 
   // Overall total (all months)
   const totalSales = orders?.reduce((sum, order) => {
-    const price = order.product?.discountPrice || order.product?.price || 0;
-    return order.status === "completed" ? sum + price : sum;
+    return order.status === "completed" ? sum + (order.totalAmount || 0) : sum;
   }, 0) || 0;
 
   return (
@@ -142,15 +140,29 @@ export default function AdminOrders() {
                     {selectedOrders.map((order) => (
                       <tr key={order.id} className="hover:bg-slate-50/30 transition-colors">
                         <td className="px-6 py-4">
-                          <div className="flex items-center gap-3">
-                            <img src={order.product?.image} className="w-10 h-10 rounded-lg object-cover" />
-                            <span className="font-bold text-sm text-slate-700">{order.product?.name}</span>
+                          <div className="space-y-2">
+                            {order.cartItems && order.cartItems.length > 0 ? (
+                              order.cartItems.map((item: any, i: number) => (
+                                <div key={i} className="flex items-center gap-2">
+                                  <img src={item.image} className="w-8 h-8 rounded-md object-cover border border-slate-100" />
+                                  <span className="font-bold text-xs text-slate-700 whitespace-nowrap">
+                                    {item.name} <span className="text-primary-pink">(x{item.quantity})</span>
+                                  </span>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="flex items-center gap-2">
+                                <img src={order.product?.image} className="w-8 h-8 rounded-md object-cover border border-slate-100" />
+                                <span className="font-bold text-xs text-slate-700">{order.product?.name}</span>
+                              </div>
+                            )}
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="text-xs font-bold text-slate-900">
-                            Rs {(order.product?.discountPrice || order.product?.price || 0).toLocaleString()}
+                          <span className="text-xs font-bold text-slate-900 block mb-1">
+                            Rs {(order.totalAmount || 0).toLocaleString()}
                           </span>
+                          <span className="text-[10px] text-slate-400 font-medium">Incl. fee</span>
                         </td>
                         <td className="px-6 py-4 space-y-1">
                           <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
@@ -160,14 +172,21 @@ export default function AdminOrders() {
                             <Phone size={12} /> {order.customerPhone}
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <a
-                            href={order.paymentScreenshot}
-                            target="_blank"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 rounded-lg text-[10px] font-bold text-slate-600 hover:bg-primary-pink/10 hover:text-primary-pink transition-all"
-                          >
-                            <ExternalLink size={12} /> View Proof
-                          </a>
+                        <td className="px-6 py-4 space-y-2">
+                          <div className={`text-[10px] font-black uppercase inline-block px-2 py-0.5 rounded ${
+                            order.paymentMethod === "Online Payment" ? "bg-blue-50 text-blue-600" : "bg-slate-100 text-slate-600"
+                          }`}>
+                            {order.paymentMethod || "Cash on Delivery"}
+                          </div>
+                          {order.paymentMethod === "Online Payment" && order.paymentScreenshot && (
+                            <a
+                              href={order.paymentScreenshot}
+                              target="_blank"
+                              className="text-[10px] font-bold text-primary-pink hover:underline flex items-center gap-1.5"
+                            >
+                              <ExternalLink size={10} /> View Receipt
+                            </a>
+                          )}
                         </td>
                         <td className="px-6 py-4">
                           <select
