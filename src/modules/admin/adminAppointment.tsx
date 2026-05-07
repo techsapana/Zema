@@ -12,6 +12,7 @@ import {
   Phone,
   User,
   Clock,
+  Scissors,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -146,7 +147,13 @@ export default function AdminAppointment() {
                       {formatDateTime(appt.appointment)} ·{" "}
                       {formatTime(appt.appointment)}
                     </span>
-                    <span className="text-base text-slate-400 flex items-center gap-1">
+                    {appt.service && (
+                      <span className="text-xs text-primary-pink flex items-center gap-1 font-semibold">
+                        <Scissors size={10} />
+                        {appt.service.name} ({appt.service.category})
+                      </span>
+                    )}
+                    <span className="text-xs text-slate-400 flex items-center gap-1">
                       <Phone size={10} />
                       {appt.phone}
                     </span>

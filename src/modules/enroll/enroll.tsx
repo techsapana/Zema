@@ -97,7 +97,7 @@ export default function Enroll() {
             Academy
           </span>
           <h1 className="text-3xl md:text-4xl font-black text-slate-900">
-            Enrol Now
+            Enroll Now
           </h1>
           <p className="text-slate-500 mt-2 max-w-sm mx-auto">
             Fill in your details and choose a course to get started on your

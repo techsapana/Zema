@@ -26,6 +26,7 @@ export interface Appointment {
   appointment: string;
   status: "pending" | "completed" | "cancelled";
   createdAt: string;
+  service?: { id: string; name: string; category: string };
 }
 
 export interface BookAppointmentResponse {
