@@ -159,7 +159,7 @@ export default function RootHeader() {
       )}
 
       <div
-        className={`fixed top-0 right-0 z-50 h-screen w-72 bg-primary-pink shadow-xl
+        className={`fixed top-0 right-0 z-[60] h-screen w-72 bg-primary-pink shadow-xl
           flex flex-col md:hidden
           transition-transform duration-300 ease-in-out
           ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
@@ -227,7 +227,7 @@ export default function RootHeader() {
             </div>
           </nav>
 
-          <div className="p-6">
+          <div className="p-6 pb-24">
             <button
               onClick={() => navigate("/bookAppointment")}
               className="w-full cursor-pointer bg-slate-900 text-primary-pink px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm"

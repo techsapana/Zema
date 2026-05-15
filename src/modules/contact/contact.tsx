@@ -76,12 +76,7 @@ export default function Contact() {
                       10:00 AM – 7:00 PM
                     </span>
                   </div>
-                  <div className="flex justify-between items-center px-4 py-3 rounded-lg border border-transparent hover:border-primary-pink/20 hover:bg-primary-pink-lighter hover:scale-[1.02] transition-all duration-200 cursor-default">
-                    <span className="text-slate-600 font-medium">Friday</span>
-                    <span className="font-bold text-slate-900">
-                      9:00 AM – 7:00 PM
-                    </span>
-                  </div>
+
                   {/* <div className="flex justify-between items-center px-4 py-3 rounded-lg border border-transparent hover:border-primary-pink/20 hover:bg-primary-pink-lighter hover:scale-[1.02] transition-all duration-200 cursor-default">
                     <span className="text-slate-500 font-medium">Sunday</span>
                     <span className="font-semibold text-primary-pink">
