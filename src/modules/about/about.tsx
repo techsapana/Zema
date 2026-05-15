@@ -50,15 +50,21 @@ export default function About() {
                     </button> */}
                   </div>
                 </div>
-                <div className="relative group">
-                  <div className="absolute -inset-4 bg-primary-pink/20 rounded-xl -rotate-2 group-hover:rotate-0 transition-transform"></div>
-                  <div
-                    className="relative h-100 w-full rounded-xl bg-cover bg-center overflow-hidden"
-                    data-alt="Elegant luxury salon interior with flowers"
-                    style={{
-                      backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9aRRElQ7ZDB42lKfYuvNPcVtbeIVfRh9vpIQC2ZL6kHyzTvKPM3F5kE7nGhbrfRr6xPrqHyfaXDvgBOKaBPd6S89lGRS_Qo4x5d0hxN4Crf4-LlJpO_m1s5seRggggF_2eRMaGPApvA3uf1Xc5wmqPkWEmGgMy_OJeKGTcj5eZd7eKvbmvU585-mquJd88FLE-zlHNtxbNT2_HzSQ9LXlXo8oRDca_tvUUM-ocxVeKKiRjouShLezbnF3e0ub_5tbRe0MzuwCv4A'`,
-                    }}
-                  ></div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="aspect-[4/5] rounded-2xl overflow-hidden mt-12 shadow-xl">
+                    <img
+                      className="w-full h-full object-cover"
+                      alt="Salon Interior 1"
+                      src="/IMG_7244.JPG.jpeg"
+                    />
+                  </div>
+                  <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-xl">
+                    <img
+                      className="w-full h-full object-cover"
+                      alt="Salon Interior 2"
+                      src="/IMG_7979.JPG.jpeg"
+                    />
+                  </div>
                 </div>
               </section>
               <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">

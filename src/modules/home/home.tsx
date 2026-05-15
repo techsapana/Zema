@@ -220,21 +220,12 @@ export default function Home() {
                   Enroll in Academy
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="aspect-3/4 rounded-2xl overflow-hidden mt-12">
-                  <img
-                    className="w-full h-full object-cover"
-                    data-alt="Stylists training in a classNameroom setting"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjb5-mP1QYtDvKwL7_qfi6sFdD7FYhd-aOtz7qIz5tk48p6OOKhz1wuiwMDiMn6zdCJhRQEhf5hOBleB6raBMMd21PD809-NmfNpLx9GzvGk870r2HglQ4jFCQBNh2b_qxg5weEfpHCzlfx-JfDukZih318yP5R4HNpGCaUuz4ynO9idt_y-kovIJJ7Y5ckJxJ2zky2aapk7XyEm3bM0IYq000gv4BTceU0VeUCfymaOjzhXvisAaNXlkfbZ-CijILeJrRAFcPMx4"
-                  />
-                </div>
-                <div className="aspect-3/4 rounded-2xl overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover"
-                    data-alt="A clean modern salon interior"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD73y0IubDE8tQ9UvTCXeQfViterJKa21PwQSxH6uDSVTF4Re-h4fGEv3sp6BsqeZD2g9MocOmz1vmvT62uSB6xcUUv8KFCi97wRWvy2JR3oDQ3RRVsGFU1BTsVO-eDbROZpldyVMXNUWtosDYV-GWoJyqpogbpTs0b4yrCSgmzP_vcc5JoBZRpNe9ewZWyeHXzanFgfW8JEuC_ZVAovAT5VIHNoYTUBqzCTU8LZJNmW2rVjngarst4dScAfLQOo9QxD-5HTZhptnA"
-                  />
-                </div>
+              <div className="rounded-2xl overflow-hidden mt-12">
+                <img
+                  className="w-full h-auto object-cover shadow-2xl"
+                  alt="Zema Academy Group Certificate"
+                  src="/groupcertificate.JPEG"
+                />
               </div>
             </div>
           </div>
