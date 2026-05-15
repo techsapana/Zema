@@ -55,14 +55,14 @@ export default function About() {
                     <img
                       className="w-full h-full object-cover"
                       alt="Salon Interior 1"
-                      src="/IMG_7244.JPG.jpeg"
+                      src="/about1.jpeg"
                     />
                   </div>
                   <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-xl">
                     <img
                       className="w-full h-full object-cover"
                       alt="Salon Interior 2"
-                      src="/IMG_7979.JPG.jpeg"
+                      src="/about2.jpeg"
                     />
                   </div>
                 </div>

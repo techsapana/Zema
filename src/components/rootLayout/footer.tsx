@@ -62,7 +62,9 @@ export default function RootFooter() {
               <a
                 aria-label="Instagram"
                 className="size-10 rounded-full bg-white  border border-stone-200  flex items-center justify-center text-slate-600  "
-                href="https://www.instagram.com/roshani_shresthaa"
+                href="https://www.instagram.com/zema_salon?igsh=MWE1NmM4cXFheGlnZA%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg
                   aria-hidden="true"
@@ -76,7 +78,9 @@ export default function RootFooter() {
               <a
                 aria-label="YouTube"
                 className="size-10 rounded-full bg-white border border-stone-200 flex items-center justify-center text-slate-600"
-                href="https://www.youtube.com/@roshani_shresthaa"
+                href="https://youtube.com/@zemasalon?si=Pm5UodgCl3IRAYG4"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg
                   aria-hidden="true"
@@ -90,7 +94,9 @@ export default function RootFooter() {
               <a
                 aria-label="TikTok"
                 className="size-10 rounded-full bg-white border border-stone-200 flex items-center justify-center text-slate-600"
-                href="https://www.tiktok.com/@roshanishrestha2"
+                href="https://www.tiktok.com/@zema.salon?_r=1&_t=ZS-96NNoGDMDJQ"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <svg
                   aria-hidden="true"
