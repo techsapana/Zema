@@ -44,7 +44,7 @@ export default function RootFooter() {
             <ul className="text-sm text-slate-600 space-y-2">
               <li className="flex items-center gap-2">
                 <MapPin />
-                Bhumi, dharatole, Kathmandu 44600
+                Boudha Bhumi, dharatole, Kathmandu 44600
               </li>
               <li className="flex items-center gap-2">
                 <Phone />
