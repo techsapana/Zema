@@ -55,14 +55,12 @@ export default function ProductInfoPage() {
   };
 
   const handleWhatsApp = () => {
-    const rawPhone = settings?.settings?.whatsappNumber;
+    const rawPhone = settings?.settings?.whatsappNumber || "9707728098";
     // Remove all non-digit characters to ensure a valid WhatsApp link
-    const phone = rawPhone ? rawPhone.replace(/\D/g, "") : "";
+    const phone = rawPhone.replace(/\D/g, "");
     
     const text = `Hi, I'm interested in ordering: ${product.name} (Rs ${product.discountPrice || product.price})`;
-    const url = phone 
-      ? `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
-      : `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
   };
 

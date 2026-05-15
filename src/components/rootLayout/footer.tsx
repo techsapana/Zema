@@ -48,11 +48,11 @@ export default function RootFooter() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone />
-                970-7728098
+                9707728098
               </li>
               <li className="flex items-center gap-2">
                 <Mail />
-                info@zemasaloon@gmail.com
+                info@zemasalon@gmail.com
               </li>
             </ul>
           </div>

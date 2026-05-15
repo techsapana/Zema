@@ -29,7 +29,7 @@ export default function Contact() {
                       Call Us
                     </p>
                     <p className="text-lg font-bold text-slate-900">
-                      970-7728098
+                      9707728098
                     </p>
                   </div>
                 </div>
@@ -42,7 +42,7 @@ export default function Contact() {
                       Email Us
                     </p>
                     <p className="text-lg font-bold text-slate-900">
-                      info@zemasaloon@gmail.com
+                      info@zemasalon@gmail.com
                     </p>
                   </div>
                 </div>
@@ -55,7 +55,7 @@ export default function Contact() {
                       Visit Us
                     </p>
                     <p className="text-lg font-bold text-slate-900">
-                      Bhumi, dharatole, Kathmandu 44600
+                      Boudha Bhumi, dharatole, Kathmandu 44600
                     </p>
                   </div>
                 </div>
