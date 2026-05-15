@@ -52,7 +52,7 @@ export default function RootFooter() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail />
-                info@zemasalon@gmail.com
+                zemasalon@gmail.com
               </li>
             </ul>
           </div>

@@ -42,7 +42,7 @@ export default function Contact() {
                       Email Us
                     </p>
                     <p className="text-lg font-bold text-slate-900">
-                      info@zemasalon@gmail.com
+                      zemasalon@gmail.com
                     </p>
                   </div>
                 </div>
